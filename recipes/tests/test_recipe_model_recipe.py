@@ -1,6 +1,5 @@
 from django.forms import ValidationError
 from recipes.tests.test_recipe_base import RecipeTestBase
-from django.core.exceptions import ValidationError
 from parameterized import parameterized
 
 
@@ -50,3 +49,9 @@ class RecipeModelTest(RecipeTestBase):
             self.recipe.is_published,
             msg='is_published is not False'
         )
+
+    def test_recipe_string_representation(self):
+        self.recipe.title = 'Testing Representation'
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(str(self.recipe), 'Testing Representation')
